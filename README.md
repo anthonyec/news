@@ -2,6 +2,11 @@
 Quick and dirty remake of thenews.im to be faster and smaller
 
 ## Features
+<div align="center">
+  <img src="https://raw.githubusercontent.com/anthonyec/dnhn/screenshot.png" alt="Screenshot" width="814">
+</div>
+<br>
+
 - **Fast** - No waiting for additional client-side loading and the site is 96% smaller in download size
 - **Usable** - Lovely full no-ellipsis titles. And new items added since you last checked get a "New!" badge
 - **Mobile** - Works better on mobile. Just scroll up and down, no swipping or hamburgers
