@@ -9,3 +9,6 @@ Quick and dirty remake of thenews.im to be faster and smaller
 
 ## Experimental features
 - **Peak** - You can look at comments without leaving the page by pressing the **⦿** icon. It's like a worse version of macOS's Quick Look
+
+## How to Install
+Bung the files on some cheap shared hosting server. Done
