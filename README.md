@@ -3,7 +3,7 @@ Quick and dirty remake of thenews.im to be faster and smaller
 
 ## Features
 <div align="center">
-  <img src="https://raw.githubusercontent.com/anthonyec/dnhn/screenshot.png" alt="Screenshot" width="814">
+  <img src="https://raw.githubusercontent.com/anthonyec/dnhn/master/screenshot.png" alt="Screenshot" width="814">
 </div>
 <br>
 
