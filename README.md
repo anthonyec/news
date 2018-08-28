@@ -1,5 +1,5 @@
 # dnhn
-Quick and dirty remake of [http://thenews.im](thenews.im) to be faster and smaller.
+Quick and dirty remake of [thenews.im](http://thenews.im) to be faster and smaller.
 
 ## Features
 <div align="center">
