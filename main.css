@@ -16,6 +16,16 @@ html, body {
   padding-bottom: 10px;
 }
 
+.feed--dn {
+  background: #F4F7FC;
+  color: #0A1974;
+}
+
+.feed--hn {
+  background: #FCF7F5;
+  color: #731D0A;
+}
+
 @media(max-width: 720px) {
   .feeds {
     flex-direction: column;
@@ -23,7 +33,6 @@ html, body {
 }
 
 .feed-item {
-  /* border-bottom: 1px solid #F0F0F0; */
   padding: 20px 0;
   padding: 16px 20px;
   border-radius: 12px;
@@ -39,8 +48,34 @@ html, body {
   margin-bottom: 0;
 }
 
+
 .feed-item--new .feed-item__new-tag {
   display: inline-block;
+}
+
+.feed-item--dn .feed-item__meta {
+  color: #AFC3E8;
+}
+
+.feed-item--hn .feed-item__meta {
+  color: #E8C4B5;
+}
+
+.feed-item--dn .feed-item__link:visited {
+  color: #AFC3E8;
+}
+
+.feed-item--hn .feed-item__link:visited {
+  color: #E8C4B5;
+}
+
+
+.feed-item--dn:hover {
+  background: #E9EFF9;
+}
+
+.feed-item--hn:hover {
+  background: #F9EFEB;
 }
 
 .feed-item__new-tag {
@@ -51,7 +86,6 @@ html, body {
   padding: 2px 4px;
   vertical-align: middle;
   display: none;
-
   /* font-size: 0;
   width: 12px;
   height: 12px;
@@ -60,7 +94,6 @@ html, body {
 }
 
 .feed-item__title {
-  color: black;
   font-weight: 400;
   font-size: 18px;
   line-height: 1.4;
@@ -78,29 +111,26 @@ html, body {
 }
 
 .feed-item__meta {
-  color: rgb(185, 185, 185);
   margin-top: 5px;
   font-size: 14px;
 }
 
 .feed-header {
-  background: rgba(255, 255, 255, 0.95);
   position: sticky;
   top: 0;
   padding: 20px 30px;
   font-size: 28px;
   font-weight: 600;
-  /* color: white; */
 }
 
 .feed-header--dn {
   border-top: 4px solid #487dce;
-  /* background-color: #487dce; */
+  background-color: rgba(244, 247, 252, 0.95);
 }
 
 .feed-header--hn {
   border-top: 4px solid #D6734B;
-  /* background-color: #D6734B; */
+  background-color: rgba(252, 247, 245, 0.95);
 }
 
 .peak {
@@ -137,7 +167,7 @@ html, body {
 }
 
 .footer {
-  padding-bottom: 10px;
+  padding: 10px 0;
   text-align: center;
 }
 

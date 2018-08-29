@@ -74,10 +74,10 @@
 <link rel="stylesheet" href="main.css">
 
 <div class="feeds">
-  <div class="feed">
+  <div class="feed feed--dn">
     <header class="feed-header feed-header--dn">Designer News</header>
     <?php foreach($dn_feed as $item): ?>
-      <div class="feed-item js-feed-item" data-uid="<?= $item->uniqueid; ?>">
+      <div class="feed-item feed-item--dn js-feed-item" data-uid="<?= $item->uniqueid; ?>">
         <h2 class="feed-item__title">
           <span class="feed-item__new-tag">New!</span>
           <a class="feed-item__link" href="<?= $item->source->absoluteUrl; ?>"><?= $item->title; ?></a>
@@ -90,10 +90,10 @@
     <?php endforeach; ?>
   </div>
 
-  <div class="feed">
+  <div class="feed feed--hn">
     <header class="feed-header feed-header--hn">Hacker News</header>
     <?php foreach($hn_feed as $item): ?>
-      <div class="feed-item js-feed-item" data-uid="<?= $item->uniqueid; ?>">
+      <div class="feed-item feed-item--hn js-feed-item" data-uid="<?= $item->uniqueid; ?>">
         <h2 class="feed-item__title">
           <span class="feed-item__new-tag">New!</span>
           <a class="feed-item__link" href="<?= $item->source->absoluteUrl; ?>"><?= $item->title; ?></a>
