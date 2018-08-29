@@ -85,6 +85,8 @@
         <div class="feed-item__meta">
           <a class="feed-item__link js-peak" href="<?= $item->source->sourceUrl; ?>" title="Peak at the comments">⦿</a>
           <a class="feed-item__link" href="<?= $item->source->sourceUrl; ?>"><?= $item->source->commentsCount; ?> comments</a>
+          -
+          <a class="feed-item__link" href="<?= $item->source->sourceUrl; ?>"><?= $item->source->likesCount; ?> points</a>
         </div>
       </div>
     <?php endforeach; ?>
@@ -101,6 +103,8 @@
         <div class="feed-item__meta">
           <a class="feed-item__link js-peak" href="<?= $item->source->sourceUrl; ?>" title="Peak at the comments">⦿</a>
           <a class="feed-item__link" href="<?= $item->source->sourceUrl; ?>"><?= $item->source->commentsCount; ?> comments</a>
+          -
+          <a class="feed-item__link" href="<?= $item->source->sourceUrl; ?>"><?= $item->source->likesCount; ?> points</a>
         </div>
       </div>
     <?php endforeach; ?>
