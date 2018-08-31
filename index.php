@@ -30,7 +30,7 @@
     $url = parse_url($url);
     return slugify($url['host'] . $url['path']);
   }
-  
+
   function setup_cache() {
     if (!file_exists(CACHE_DIRECTORY)) {
       mkdir(CACHE_DIRECTORY);
@@ -45,7 +45,7 @@
     $current_time = time();
     $expire_time = $hours * 60 * 60;
     $cache_file = CACHE_DIRECTORY . '/' . url_to_filename($url);
-    
+
     if (file_exists($cache_file) && ($current_time - $expire_time < filemtime($cache_file))) {
       return file_get_contents($cache_file);
     }
@@ -67,111 +67,119 @@
   $dn_feed = json_decode($dn_json_response);
   $hn_feed = json_decode($hn_json_response);
 ?>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>News</title>
 
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<link rel="stylesheet" href="main.css">
-
-<div class="feeds">
-  <div class="feed feed--dn">
-    <header class="feed-header feed-header--dn">Designer News</header>
-    <?php foreach($dn_feed as $item): ?>
-      <div class="feed-item feed-item--dn js-feed-item" data-uid="<?= $item->uniqueid; ?>">
-        <h2 class="feed-item__title">
-          <span class="feed-item__new-tag">New!</span>
-          <a class="feed-item__link" href="<?= $item->source->absoluteUrl; ?>"><?= $item->title; ?></a>
-        </h2>
-        <div class="feed-item__meta">
-          <a class="feed-item__link js-peak" href="<?= $item->source->sourceUrl; ?>" title="Peak at the comments">⦿</a>
-          <a class="feed-item__link" href="<?= $item->source->sourceUrl; ?>"><?= $item->source->commentsCount; ?> comments</a>
-          -
-          <a class="feed-item__link" href="<?= $item->source->sourceUrl; ?>"><?= $item->source->likesCount; ?> points</a>
+  <style>
+    <?= file_get_contents(__DIR__ . '/main.css'); ?>
+  </style>
+</head>
+<body>
+  <div class="feeds">
+    <div class="feed feed--dn">
+      <header class="feed-header feed-header--dn">Designer News</header>
+      <?php foreach($dn_feed as $item): ?>
+        <div class="feed-item feed-item--dn js-feed-item" data-uid="<?= $item->uniqueid; ?>">
+          <h2 class="feed-item__title">
+            <span class="feed-item__new-tag">New!</span>
+            <a class="feed-item__link" href="<?= $item->source->absoluteUrl; ?>"><?= $item->title; ?></a>
+          </h2>
+          <div class="feed-item__meta">
+            <a class="feed-item__link js-peak" href="<?= $item->source->sourceUrl; ?>" title="Peak at the comments">⦿</a>
+            <a class="feed-item__link" href="<?= $item->source->sourceUrl; ?>"><?= $item->source->commentsCount; ?> comments</a>
+            -
+            <a class="feed-item__link" href="<?= $item->source->sourceUrl; ?>"><?= $item->source->likesCount; ?> points</a>
+          </div>
         </div>
-      </div>
-    <?php endforeach; ?>
+      <?php endforeach; ?>
+    </div>
+
+    <div class="feed feed--hn">
+      <header class="feed-header feed-header--hn">Hacker News</header>
+      <?php foreach($hn_feed as $item): ?>
+        <div class="feed-item feed-item--hn js-feed-item" data-uid="<?= $item->uniqueid; ?>">
+          <h2 class="feed-item__title">
+            <span class="feed-item__new-tag">New!</span>
+            <a class="feed-item__link" href="<?= $item->source->absoluteUrl; ?>"><?= $item->title; ?></a>
+          </h2>
+          <div class="feed-item__meta">
+            <a class="feed-item__link js-peak" href="<?= $item->source->sourceUrl; ?>" title="Peak at the comments">⦿</a>
+            <a class="feed-item__link" href="<?= $item->source->sourceUrl; ?>"><?= $item->source->commentsCount; ?> comments</a>
+            -
+            <a class="feed-item__link" href="<?= $item->source->sourceUrl; ?>"><?= $item->source->likesCount; ?> points</a>
+          </div>
+        </div>
+      <?php endforeach; ?>
+    </div>
   </div>
 
-  <div class="feed feed--hn">
-    <header class="feed-header feed-header--hn">Hacker News</header>
-    <?php foreach($hn_feed as $item): ?>
-      <div class="feed-item feed-item--hn js-feed-item" data-uid="<?= $item->uniqueid; ?>">
-        <h2 class="feed-item__title">
-          <span class="feed-item__new-tag">New!</span>
-          <a class="feed-item__link" href="<?= $item->source->absoluteUrl; ?>"><?= $item->title; ?></a>
-        </h2>
-        <div class="feed-item__meta">
-          <a class="feed-item__link js-peak" href="<?= $item->source->sourceUrl; ?>" title="Peak at the comments">⦿</a>
-          <a class="feed-item__link" href="<?= $item->source->sourceUrl; ?>"><?= $item->source->commentsCount; ?> comments</a>
-          -
-          <a class="feed-item__link" href="<?= $item->source->sourceUrl; ?>"><?= $item->source->likesCount; ?> points</a>
-        </div>
-      </div>
-    <?php endforeach; ?>
+  <footer class="footer">
+    <a href="http://github.com/anthonyec">
+      <img src="https://avatars1.githubusercontent.com/u/1451668?s=460&v=4" alt="anthonyec">
+    </a>
+  </footer>
+
+  <div class="peak peak--hidden js-peak-overlay">
+    <iframe src="about:blank" frameborder="0" class="peak__iframe js-peak-frame"></iframe>
   </div>
-</div>
 
-<footer class="footer">
-  <a href="http://github.com/anthonyec">
-    <img src="https://avatars1.githubusercontent.com/u/1451668?s=460&v=4" alt="anthonyec">
-  </a>
-</footer>
+  <script>
+    (function() {
+      const $peakLinks = document.querySelectorAll('.js-peak');
+      const $peakOverlay = document.querySelector('.js-peak-overlay');
+      const $peakFrame = document.querySelector('.js-peak-frame');
 
-<div class="peak peak--hidden js-peak-overlay">
-  <iframe src="about:blank" frameborder="0" class="peak__iframe js-peak-frame"></iframe>
-</div>
+      function openPeak(url) {
+        $peakOverlay.classList.remove('peak--hidden');
+        $peakFrame.src = 'peak.php?url=' + url;
+      }
 
-<script>
-  (function() {
-    const $peakLinks = document.querySelectorAll('.js-peak');
-    const $peakOverlay = document.querySelector('.js-peak-overlay');
-    const $peakFrame = document.querySelector('.js-peak-frame');
+      function closePeak() {
+        $peakOverlay.classList.add('peak--hidden');
+        $peakFrame.src = 'about:blank';
+      }
 
-    function openPeak(url) {
-      $peakOverlay.classList.remove('peak--hidden');
-      $peakFrame.src = 'peak.php?url=' + url;
-    }
+      function onPeakLinkClick(evt) {
+        evt.preventDefault();
+        openPeak(evt.currentTarget.href);
+      }
 
-    function closePeak() {
-      $peakOverlay.classList.add('peak--hidden');
-      $peakFrame.src = 'about:blank';
-    }
-
-    function onPeakLinkClick(evt) {
-      evt.preventDefault();
-      openPeak(evt.currentTarget.href);
-    }
-
-    $peakLinks.forEach(($link) => {
-      $link.addEventListener('click', onPeakLinkClick);
-    });
-
-    $peakOverlay.addEventListener('click', closePeak);
-  })();
-</script>
-
-<script>
-  (function() {
-    const $feedItems = document.querySelectorAll('.js-feed-item');
-    const items = Array.prototype.slice.call($feedItems); // nodelist to array
-    const oldsUids = JSON.parse(localStorage.getItem('oldsUids')) || [];
-
-    const uids = items.map(($item) => {
-      return $item.dataset.uid;
-    });
-
-    const newUids = uids.filter((item) => {
-      return oldsUids.indexOf(item) < 0;
-    });
-
-    if (oldsUids.length && newUids.length) {
-      newUids.forEach((uid) => {
-        const $newItem = document.querySelector(`[data-uid="${uid}"`);
-        $newItem.classList.add('feed-item--new');
+      $peakLinks.forEach(($link) => {
+        $link.addEventListener('click', onPeakLinkClick);
       });
-    }
 
-    const combinedUids = oldsUids.concat(newUids);
-    localStorage.setItem('oldsUids', JSON.stringify(combinedUids));
-  })();
-</script>
+      $peakOverlay.addEventListener('click', closePeak);
+    })();
+  </script>
+
+  <script>
+    (function() {
+      const $feedItems = document.querySelectorAll('.js-feed-item');
+      const items = Array.prototype.slice.call($feedItems); // nodelist to array
+      const oldsUids = JSON.parse(localStorage.getItem('oldsUids')) || [];
+
+      const uids = items.map(($item) => {
+        return $item.dataset.uid;
+      });
+
+      const newUids = uids.filter((item) => {
+        return oldsUids.indexOf(item) < 0;
+      });
+
+      if (oldsUids.length && newUids.length) {
+        newUids.forEach((uid) => {
+          const $newItem = document.querySelector(`[data-uid="${uid}"`);
+          $newItem.classList.add('feed-item--new');
+        });
+      }
+
+      const combinedUids = oldsUids.concat(newUids);
+      localStorage.setItem('oldsUids', JSON.stringify(combinedUids));
+    })();
+  </script>
+  </body>
+</html>
