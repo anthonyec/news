@@ -86,7 +86,7 @@
         <div class="feed-item feed-item--dn js-feed-item" data-uid="<?= $item->uniqueid; ?>">
           <h2 class="feed-item__title">
             <span class="feed-item__new-tag">New!</span>
-            <a class="feed-item__link" href="<?= $item->source->absoluteUrl; ?>"><?= $item->title; ?></a>
+            <a class="feed-item__link js-link" href="<?= $item->source->absoluteUrl; ?>"><?= $item->title; ?></a>
           </h2>
           <div class="feed-item__meta">
             <a class="feed-item__link js-peak" href="<?= $item->source->sourceUrl; ?>" title="Peak at the comments">⦿</a>
@@ -104,7 +104,7 @@
         <div class="feed-item feed-item--hn js-feed-item" data-uid="<?= $item->uniqueid; ?>">
           <h2 class="feed-item__title">
             <span class="feed-item__new-tag">New!</span>
-            <a class="feed-item__link" href="<?= $item->source->absoluteUrl; ?>"><?= $item->title; ?></a>
+            <a class="feed-item__link js-link" href="<?= $item->source->absoluteUrl; ?>"><?= $item->title; ?></a>
           </h2>
           <div class="feed-item__meta">
             <a class="feed-item__link js-peak" href="<?= $item->source->sourceUrl; ?>" title="Peak at the comments">⦿</a>
@@ -124,14 +124,19 @@
   </footer>
 
   <div class="peak peak--hidden js-peak-overlay">
-    <iframe src="about:blank" frameborder="0" class="peak__iframe js-peak-frame"></iframe>
+    <div class="peak__frame-container">
+      <iframe src="about:blank" frameborder="0" class="peak__iframe js-peak-frame"></iframe>
+    </div>
   </div>
 
   <script>
     (function() {
+      const $items = document.querySelectorAll('.js-feed-item');
       const $peakLinks = document.querySelectorAll('.js-peak');
       const $peakOverlay = document.querySelector('.js-peak-overlay');
       const $peakFrame = document.querySelector('.js-peak-frame');
+
+      let $hoverItem = null;
 
       function openPeak(url) {
         $peakOverlay.classList.remove('peak--hidden');
@@ -143,15 +148,54 @@
         $peakFrame.src = 'about:blank';
       }
 
+      function openPeakForItem($item) {
+        const $peakLink = $item.querySelector('.js-peak');
+        openPeak($peakLink.href);
+      }
+
+      function gotoLinkFromItem($item) {
+        const $link = $item.querySelector('.js-link');
+        // window.location = $link.href;
+        window.open($link.href, '_blank');
+      }
+
       function onPeakLinkClick(evt) {
         evt.preventDefault();
         openPeak(evt.currentTarget.href);
+      }
+
+      function onMouseEnterItem(evt) {
+        $hoverItem = evt.currentTarget;
+      }
+
+      function onMouseLeaveItem(evt) {
+        $hoverItem = null;
       }
 
       $peakLinks.forEach(($link) => {
         $link.addEventListener('click', onPeakLinkClick);
       });
 
+      $items.forEach(($item) => {
+        $item.addEventListener('mouseenter', onMouseEnterItem)
+        $item.addEventListener('mouseleave', onMouseLeaveItem)
+      })
+
+      document.body.addEventListener('keydown', (evt) => {
+        if (evt.keyCode === 27) {
+          closePeak();
+        }
+
+        if (evt.keyCode === 32 && $hoverItem !== null) {
+          evt.preventDefault();
+          openPeakForItem($hoverItem);
+        }
+
+        if (evt.keyCode === 13 && $hoverItem !== null) {
+          evt.preventDefault();
+          gotoLinkFromItem($hoverItem);
+        }
+      });
       $peakOverlay.addEventListener('click', closePeak);
     })();
   </script>
