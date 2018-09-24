@@ -219,6 +219,9 @@
           const $newItem = document.querySelector(`[data-uid="${uid}"`);
           $newItem.classList.add('feed-item--new');
         });
+
+        const title = `(${newUids.length}) ${document.title}`;
+        document.title = title;
       }
 
       const combinedUids = oldsUids.concat(newUids);
