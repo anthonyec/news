@@ -1,0 +1,51 @@
+html.light {
+  --global-footer-background: white;
+  --global-new-badge-background: #f9980e;
+  --global-new-badge-text: white;
+  --global-page-background: white;
+  --global-overlay-background: rgba(255, 255, 255, 0.5);
+
+  --dn-feed-background: #F4F7FC;
+  --dn-feed-header-background: rgba(244, 247, 252, 0.95);
+  --dn-feed-text: #0A1974;
+  --dn-feed-border: #487dce;
+  --dn-item-background-hover: #E9EFF9;
+  --dn-item-title-visited: #AFC3E8;
+  --dn-item-meta-text: #AFC3E8;
+
+  --hn-feed-background: #FCF7F5;
+  --hn-feed-header-background: rgba(252, 247, 245, 0.95);
+  --hn-feed-text: #731D0A;
+  --hn-feed-border: #D6734B;
+  --hn-item-background-hover: #F9EFEB;
+  --hn-item-title-visited: #E8C4B5;
+  --hn-item-meta-text: #E8C4B5;
+}
+
+html.dark {
+  --global-footer-background: #CCCCCC;
+  --global-new-badge-background: #f9980e;
+  --global-new-badge-text: black;
+  --global-page-background: black;
+  --global-overlay-background: rgba(0, 0, 0, 0.5);
+
+  --dn-feed-background: #1A1D22;
+  --dn-feed-header-background: #1A1D22;
+  --dn-feed-text: #D9E9FF;
+  --dn-feed-border: #689BE7;
+  --dn-item-background-hover: #20262F;
+  --dn-item-title-visited: #38435E;
+  --dn-item-meta-text: #38435E;
+
+  --hn-feed-background: #201B1A;
+  --hn-feed-header-background: #201B1A;
+  --hn-feed-text: #FFCBBA;
+  --hn-feed-border: #D47751;
+  --hn-item-background-hover: #2A211D;
+  --hn-item-title-visited: #624132;
+  --hn-item-meta-text: #624132;
+}
+
+html.dark .footer img {
+  filter: invert(0.2);
+}

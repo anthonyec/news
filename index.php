@@ -71,7 +71,7 @@
   $dn_feed = json_decode($dn_json_response);
   $hn_feed = json_decode($hn_json_response);
 ?>
-<html lang="en">
+<html lang="en" class="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -83,6 +83,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 
   <style>
+    <?= file_get_contents(__DIR__ . '/vars.css'); ?>
     <?= file_get_contents(__DIR__ . '/main.css'); ?>
   </style>
 </head>
@@ -126,9 +127,14 @@
   </div>
 
   <footer class="footer">
-    <a href="http://github.com/anthonyec">
+    <!-- <a href="http://github.com/anthonyec/news">
       <img src="https://avatars1.githubusercontent.com/u/1451668?s=460&v=4" alt="anthonyec">
-    </a>
+    </a> -->
+
+    <div class="toggle">
+      <input class="toggle__input js-dark-mode-toggle" type="checkbox" title="Toggle dark mode">
+      <div class="toggle__knob"></div>
+    </div>
   </footer>
 
   <div class="peak peak--hidden js-peak-overlay">
@@ -136,6 +142,36 @@
       <iframe src="about:blank" frameborder="0" class="peak__iframe js-peak-frame"></iframe>
     </div>
   </div>
+
+  <script>
+    (function() {
+      const $html = document.querySelector('html');
+      const $toggle = document.querySelector('.js-dark-mode-toggle');
+
+      function toggleDarkMode(toggledOn) {
+        const removeClass = toggledOn ? 'light' : 'dark';
+        const addClass = toggledOn ? 'dark' : 'light';
+
+        $html.classList.remove(removeClass);
+        $html.classList.add(addClass);
+
+        localStorage.setItem('darkMode', toggledOn);
+      }
+
+      $toggle.addEventListener('change', (evt) => {
+        toggleDarkMode(evt.currentTarget.checked);
+      });
+
+      try {
+        const savedDarkModeSetting = JSON.parse(localStorage.getItem('darkMode'));
+
+        toggleDarkMode(savedDarkModeSetting);
+        $toggle.checked = savedDarkModeSetting;
+      } catch (err) {
+        console.error(err);
+      }
+    })();
+  </script>
 
   <script>
     (function() {
@@ -210,6 +246,7 @@
 
   <script>
     (function() {
+      const $html = document.querySelector('html');
       const $feedItems = document.querySelectorAll('.js-feed-item');
       const items = Array.prototype.slice.call($feedItems); // nodelist to array
       const oldsUids = JSON.parse(localStorage.getItem('oldsUids')) || [];

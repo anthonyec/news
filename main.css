@@ -3,6 +3,7 @@
 }
 
 html, body {
+  background: var(--global-page-background);
   font-family: sans-serif;
   margin: 0;
 }
@@ -17,13 +18,13 @@ html, body {
 }
 
 .feed--dn {
-  background: #F4F7FC;
-  color: #0A1974;
+  background: var(--dn-feed-background);
+  color: var(--dn-feed-text);
 }
 
 .feed--hn {
-  background: #FCF7F5;
-  color: #731D0A;
+  background: var(--hn-feed-background);
+  color: var(--hn-feed-text);;
 }
 
 @media(max-width: 720px) {
@@ -53,46 +54,39 @@ html, body {
 }
 
 .feed-item--dn .feed-item__meta {
-  color: #AFC3E8;
+  color: var(--dn-item-meta-text);
 }
 
 .feed-item--hn .feed-item__meta {
-  color: #E8C4B5;
+  color: var(--hn-item-meta-text);
 }
 
 .feed-item--dn .feed-item__link:visited {
-  color: #AFC3E8;
+  color: var(--dn-item-title-visited);
 }
 
 .feed-item--hn .feed-item__link:visited {
-  color: #E8C4B5;
+  color: var(--hn-item-title-visited);
 }
 
 .feed-item--dn:hover {
-  background: #E9EFF9;
+  background: var(--dn-item-background-hover);
 }
 
 .feed-item--hn:hover {
-  background: #F9EFEB;
+  background: var(--hn-item-background-hover);
 }
 
 .feed-item__new-tag {
-  background: #f9980e;
-  /* background: linear-gradient(to top, #f9980e 1%,#ff7207 100%); */
-  /* box-shadow: 0 1px 0 white; */
+  background: var(--global-new-badge-background);
+  color: var(--global-new-badge-text);
   border-radius: 4px;
-  color: white;
   font-size: 10px;
   padding: 2px 4px;
   vertical-align: middle;
   margin-top: -4px;
   text-transform: uppercase;
   display: none;
-  /* font-size: 0;
-  width: 12px;
-  height: 12px;
-  display: inline-block;
-  border-radius: 100px; */
 }
 
 .feed-item__title {
@@ -128,13 +122,13 @@ html, body {
 }
 
 .feed-header--dn {
-  border-top: 4px solid #487dce;
-  background-color: rgba(244, 247, 252, 0.95);
+  border-top: 4px solid var(--dn-feed-border);
+  background-color: var(--dn-feed-header-background);
 }
 
 .feed-header--hn {
-  border-top: 4px solid #D6734B;
-  background-color: rgba(252, 247, 245, 0.95);
+  border-top: 4px solid var(--hn-feed-border);
+  background-color: var(--hn-feed-header-background);
 }
 
 .peak {
@@ -142,7 +136,7 @@ html, body {
   height: 100%;
   top: 0;
   left: 0;
-  background: rgba(255, 255, 255, 0.5);
+  background: var(--global-overlay-background);
   position: fixed;
 }
 
@@ -192,16 +186,69 @@ html, body {
 }
 
 .footer {
+  background: var(--global-footer-background);
+  display: flex;
   padding: 10px 0;
-  text-align: center;
+  align-items: center;
+  justify-content: center;
 }
 
 .footer a {
-  color: black;
   text-decoration: none;
 }
 
 .footer img {
-  width: 50px;
-  height: 50px;
+  border-radius: 100px;
+  width: 28px;
+  height: 28px;
+}
+
+.toggle {
+  width: 25px;
+  height: 25px;
+  position: relative;
+}
+
+.toggle__input {
+  cursor: pointer;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.toggle__knob {
+  border-radius: 8px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transition: left 0.4s ease-in-out;
+}
+
+.toggle__knob:after {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  line-height: 25px;
+}
+
+.toggle__input:checked ~ .toggle__knob:after {
+  content: '☀';
+  line-height: 28px;
+}
+
+.toggle__input ~ .toggle__knob:after {
+  content: '☾';
+  line-height: 26px;
+}
+
+
+.toggle__input:focus ~ .toggle__knob {
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.8);
 }
