@@ -1,4 +1,6 @@
 <?php
+  ini_set('default_socket_timeout', 5);
+
   define('CACHE_DIRECTORY', __DIR__ . '/cache');
   define('CACHE_MAP', CACHE_DIRECTORY . '/cache.php');
 
@@ -54,6 +56,8 @@
 
     if ($response) {
       file_put_contents($cache_file, $response);
+    } else {
+      return file_get_contents($cache_file);
     }
 
     return $response;
