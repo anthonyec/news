@@ -1,4 +1,4 @@
-# dnhn
+# News
 Quick and dirty remake of [thenews.im](http://thenews.im) to be faster and smaller.
 
 ## Features
