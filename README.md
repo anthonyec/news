@@ -3,7 +3,7 @@ Simple remake of [thenews.im](http://thenews.im) to make it faster and smaller.
 
 ## Features
 <div align="center">
-  <img src="https://raw.githubusercontent.com/anthonyec/dnhn/master/screenshot.png" alt="Screenshot" width="814">
+  <img src="https://raw.githubusercontent.com/anthonyec/news/master/screenshot.png" alt="Screenshot" width="814">
 </div>
 <br>
 
